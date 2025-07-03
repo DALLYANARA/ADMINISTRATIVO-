@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego: Impugnación del Acto Administrativo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background-color: #f4f4f4;
+        }
+        .question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .question h3 {
+            margin-bottom: 0.5rem;
+        }
+        .options button {
+            display: block;
+            margin: 0.3rem 0;
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #eee;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .options button:hover {
+            background-color: #ccc;
+        }
+        .correct {
+            background-color: #a4e5a4 !important;
+        }
+        .incorrect {
+            background-color: #e5a4a4 !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Juego: 20 Preguntas de Impugnación del Acto Administrativo</h1>
+    <div id="quiz"></div>
+    <script>
+        const preguntas = [
+            {
+                tipo: "multiple",
+                pregunta: "¿Cuál de los siguientes es un recurso en vía administrativa?",
+                opciones: ["Recurso de apelación", "Demanda judicial", "Queja"],
+                correcta: 0
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Cuántos días hay para interponer un recurso de apelación en contratación pública?",
+                opciones: ["10 días", "3 días", "5 días"],
+                correcta: 1
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Quién resuelve el recurso de apelación?",
+                opciones: ["El juez contencioso", "La máxima autoridad", "El denunciante"],
+                correcta: 1
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Qué causal NO corresponde al recurso extraordinario de revisión?",
+                opciones: ["Error de derecho", "Documentos falsos", "Nuevos documentos esenciales"],
+                correcta: 0
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Cuál es el plazo para resolver un recurso extraordinario de revisión una vez admitido?",
+                opciones: ["10 días", "20 días", "1 mes"],
+                correcta: 2
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Cuál de estas afirmaciones sobre el acto que causa estado es correcta?",
+                opciones: ["Puede ser apelado en todo momento", "Solo puede ser revisado mediante recursos extraordinarios", "No puede ser impugnado en vía judicial"],
+                correcta: 1
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Cuál es el plazo para pedir la suspensión de ejecución del acto administrativo?",
+                opciones: ["5 días", "3 días", "10 días"],
+                correcta: 1
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Qué tipo de sanción es la cesantía?",
+                opciones: ["Correctiva", "Expulsiva", "Represiva"],
+                correcta: 1
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Qué tipo de recurso se presenta ante un defecto en el procedimiento?",
+                opciones: ["Recurso", "Queja", "Petición"],
+                correcta: 1
+            },
+            {
+                tipo: "multiple",
+                pregunta: "¿Cuál es el plazo para impugnar un acto administrativo por vía judicial?",
+                opciones: ["30 días", "90 días", "120 días"],
+                correcta: 1
+            },
+            {
+                tipo: "vf",
+                pregunta: "El recurso de apelación puede ser interpuesto por cualquier persona, incluso autoridades públicas.",
+                correcta: false
+            },
+            {
+                tipo: "vf",
+                pregunta: "Una vez resuelto un recurso de apelación, el acto causa estado.",
+                correcta: true
+            },
+            {
+                tipo: "vf",
+                pregunta: "Un acto administrativo firme puede ser impugnado en vía judicial.",
+                correcta: false
+            },
+            {
+                tipo: "vf",
+                pregunta: "La regla de non reformatio in pejus protege al recurrente de empeorar su situación.",
+                correcta: true
+            },
+            {
+                tipo: "vf",
+                pregunta: "La presentación de un recurso judicial suspende automáticamente la ejecución del acto administrativo.",
+                correcta: false
+            },
+            {
+                tipo: "vf",
+                pregunta: "El recurso extraordinario de revisión solo procede si el acto ha causado estado.",
+                correcta: true
+            },
+            {
+                tipo: "vf",
+                pregunta: "Las sanciones administrativas disciplinarias pueden aplicarse a cualquier ciudadano.",
+                correcta: false
+            },
+            {
+                tipo: "vf",
+                pregunta: "La petición busca generar un nuevo acto administrativo.",
+                correcta: true
+            },
+            {
+                tipo: "vf",
+                pregunta: "Las quejas buscan modificar o extinguir un acto administrativo.",
+                correcta: false
+            },
+            {
+                tipo: "vf",
+                pregunta: "La Administración puede impugnar sus propios actos mediante recurso de revisión.",
+                correcta: false
+            }
+        ];
+
+        const quiz = document.getElementById("quiz");
+
+        preguntas.forEach((p, i) => {
+            const div = document.createElement("div");
+            div.className = "question";
+            const pregunta = document.createElement("h3");
+            pregunta.textContent = (i + 1) + ". " + p.pregunta;
+            div.appendChild(pregunta);
+
+            const opcionesDiv = document.createElement("div");
+            opcionesDiv.className = "options";
+
+            if (p.tipo === "multiple") {
+                p.opciones.forEach((opcion, idx) => {
+                    const btn = document.createElement("button");
+                    btn.textContent = opcion;
+                    btn.onclick = () => {
+                        if (idx === p.correcta) {
+                            btn.classList.add("correct");
+                        } else {
+                            btn.classList.add("incorrect");
+                        }
+                    }
+                    opcionesDiv.appendChild(btn);
+                });
+            } else {
+                ["Verdadero", "Falso"].forEach((opcion, idx) => {
+                    const btn = document.createElement("button");
+                    btn.textContent = opcion;
+                    btn.onclick = () => {
+                        const correcto = (p.correcta === (idx === 0));
+                        if (correcto) {
+                            btn.classList.add("correct");
+                        } else {
+                            btn.classList.add("incorrect");
+                        }
+                    }
+                    opcionesDiv.appendChild(btn);
+                });
+            }
+
+            div.appendChild(opcionesDiv);
+            quiz.appendChild(div);
+        });
+    </script>
+</body>
+</html>
